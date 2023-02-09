@@ -1,0 +1,5 @@
+.nyc_output/
+bin/daemon/
+coverage/
+node_modules/
+R*.txt
