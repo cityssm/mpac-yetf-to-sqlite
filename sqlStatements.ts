@@ -1,6 +1,6 @@
 export const createStatements = [
   `create table AA (
-    rollNumber char(19) not null,
+    rollNumber char(19) primary key not null,
     rollNumberCounty char(2) not null,
     rollNumberMunicipality char(2) not null,
     rollNumberMapArea char(2) not null,
@@ -22,7 +22,7 @@ export const createStatements = [
     frenchSeparateSchoolCode char(2) not null
   )`,
   `create table BB (
-    rollNumber char(19) not null,
+    rollNumber char(19) primary key not null,
     frontage char(9) not null,
     frontageFeet double,
     frontageMetres double,
@@ -50,7 +50,8 @@ export const createStatements = [
     services char(1) not null,
     servicesName varchar(20),
     access char(1) not null,
-    accessName varchar(40)
+    accessName varchar(40),
+    foreign key (rollNumber) references AA (rollNumber)
   )`,
   `create table CC (
     rollNumber char(19) not null,
@@ -97,6 +98,135 @@ export const createStatements = [
     garageSpaces char(3) not null,
     structureCode char(3) not null,
     structureCodeClass varchar(20),
-    structureCodeName varchar(100)
+    structureCodeName varchar(100),
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table DD (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    acres char(9) not null,
+    texture char(1) not null,
+    textureName varchar(20),
+    soilClass char(1) not null,
+    soilClassPointsRemainingMin tinyint,
+    soilClassPointsRemainingMax tinyint,
+    climaticZone char(1) not null,
+    woodedAcreage char(9) not null,
+    orchardAcreage char(9) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table GG (
+    rollNumber char(19) not null,
+    sequenceNumber char(3) not null,
+    name char(28) not null,
+    identifier char(1) not null,
+    identifierName varchar(60),
+    occupancyStatus char(1) not null,
+    occupancyStatusName varchar(80),
+    religion char(1) not null,
+    schoolSupport char(1) not null,
+    schoolSupportName varchar(30),
+    residencyCode char(1) not null,
+    residencyCodeDescription varchar(100),
+    citizenship char(1) not null,
+    designatedRatepayerCode char(1) not null,
+    yearOfBirth char(4) not null,
+    monthOfBirth char(2) not null,
+    frenchLanguageEducationRights char(1) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table HH (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    mailingAddress char(28) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table JJ (
+    rollNumber char(19) primary key not null,
+    cityProvinceCountry char(21) not null,
+    postalCode char(7) not null,
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table KK (
+    rollNumber char(19) primary key not null,
+    streetNumber char(5) not null,
+    upperStreetNumber char(5) not null,
+    qualifier char(1) not null,
+    streetName char(17) not null,
+    unitNumber char(5) not null,
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table LL (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    legalDescription char(28) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table MM (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    commentsSiteDimensions char(28) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table PA (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    phasedInValue char(10) not null,
+    unitClass char(3) not null,
+    unitClassDescription text,
+    realtyTaxClass char(1) not null,
+    realtyTaxClassName varchar(100),
+    realtyTaxQualifier char(1) not null,
+    realtyTaxQualifierClass varchar(20),
+    realtyTaxQualifierName varchar(100),
+    tenantTaxLiability char(1) not null,
+    noticeIssued char(1) not null,
+    previousYearAssessment char(10) not null,
+    unitSupport char(1) not null,
+    unitSupportName varchar(30),
+    pooledTaxesUnit char(1) not null,
+    propertyType char(1) not null,
+    propertyTypeName varchar(30),
+    propertyTotal char(10) not null,
+    realtyPortionTotal char(10) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table PB (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    realtyPortionEnglishPublic char(10) not null,
+    realtyPortionEnglishSeparate char(10) not null,
+    realtyPortionNoSupport char(10) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table PC (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    realtyPortionFrenchPublic char(10) not null,
+    realtyPortionFrenchSeparate char(10) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table PD (
+    rollNumber char(19) not null,
+    sequenceNumber char(1) not null,
+    realtyPortionProtestantSeparate char(10) not null,
+    primary key (rollNumber, sequenceNumber),
+    foreign key (rollNumber) references AA (rollNumber)
+  )`,
+  `create table PI (
+    rollNumber char(19) primary key not null,
+    phaseInStartingPoint char(10) not null,
+    phaseInValue char(10) not null,
+    phaseInDestinationValue char(10) not null,
+    foreign key (rollNumber) references AA (rollNumber)
   )`
 ]

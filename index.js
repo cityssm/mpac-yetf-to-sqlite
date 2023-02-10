@@ -3,16 +3,33 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import sqlite from 'better-sqlite3';
 import { createStatements } from './sqlStatements.js';
-import parseYetf from '@cityssm/mpac-yetf';
+import { parseYetf } from '@cityssm/mpac-yetf';
 const argv = yargs(hideBin(process.argv))
-    .usage('Usage: $0 -i [inputFile] -o [outputFile]')
-    .demandOption(['i', 'o']).argv;
+    .usage('Usage: $0 --inputFile [inputFile] --outputFile [outputFile]')
+    .command('--inputFile [inputFile] --outputFile [outputFile]', 'Process the MPAC YETF', (yargs) => {
+    return yargs
+        .positional('inputFile', {
+        describe: 'Path to the MPAC YETF text file.'
+    })
+        .positional('outputFile', {
+        describe: 'Path to the output SQLite database file'
+    });
+})
+    .option('inputFile', {
+    type: 'string',
+    description: 'Path to the MPAC YETF text file'
+})
+    .option('outputFile', {
+    type: 'string',
+    description: 'Path to the output SQLite database file'
+})
+    .demandOption(['inputFile', 'outputFile']).argv;
 try {
-    const inputFile = argv.i;
+    const inputFile = argv.inputFile;
     if (!fs.existsSync(inputFile)) {
         throw new Error('Input file does not exist: ' + inputFile);
     }
-    const outputFile = argv.o;
+    const outputFile = argv.outputFile;
     if (fs.existsSync(outputFile)) {
         throw new Error('Output file already exists: ' + outputFile);
     }
@@ -20,11 +37,15 @@ try {
     for (const createStatement of createStatements) {
         database.prepare(createStatement).run();
     }
+    let lineNumber = 0;
     await parseYetf(inputFile, {
         addFormattedFields: true,
         callbacks: {
             all: (record) => {
-                console.log(record);
+                lineNumber += 1;
+                if (lineNumber % 1000 === 0) {
+                    console.log(`Processing line ${lineNumber}...`);
+                }
             },
             AA: (record) => {
                 database
@@ -90,9 +111,127 @@ try {
               garageType, garageTypeName,
               garageSpaces,
               structureCode, structureCodeClass, structureCodeName)
-              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?,
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?,
                 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-                    .run();
+                    .run(record.rollNumber, record.sequenceNumber, record.characterOfConstruction, record.characterOfConstructionDescription, record.characterOfConstructionFramingDescription, record.characterOfConstructionFloorDescription, record.characterOfConstructionRoofDescription, record.characterOfConstructionWallsDescription, record.quality, record.shape, record.yearBuilt, record.yearBuiltCode, record.yearBuiltCodeName, record.condition, record.conditionName, record.conditionRankingOutOf5, record.fullStoreys, record.partStoreys, record.partStoreysName, record.heightEffectiveYearBuilt, record.heightFeet, record.effectiveYearBuilt, record.split, record.splitName, record.grossArea, record.grossAreaSquareFeet, record.totalBasementArea, record.totalBasementAreaSquareFeet, record.finishedBasementArea, record.finishedBasementAreaSquareFeet, record.basementFinish, record.basementFinishName, record.fullBaths, record.halfBaths, record.numberOfBedrooms, record.numberOfFireplaces, record.heatingType, record.heatingTypeName, record.airConditioning, record.garageType, record.garageTypeName, record.garageSpaces, record.structureCode, record.structureCodeClass, record.structureCodeName);
+            },
+            DD: (record) => {
+                database
+                    .prepare(`insert into DD (
+              rollNumber, sequenceNumber,
+              acres,
+              texture, textureName,
+              soilClass, soilClassPointsRemainingMin, soilClassPointsRemainingMax,
+              climaticZone,
+              woodedAcreage, orchardAcreage)
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.acres, record.texture, record.textureName, record.soilClass, record.soilClassPointsRemainingMin, record.soilClassPointsRemainingMax, record.climaticZone, record.woodedAcreage, record.orchardAcreage);
+            },
+            GG: (record) => {
+                database
+                    .prepare(`insert into GG (
+              rollNumber, sequenceNumber,
+              name,
+              identifier, identifierName,
+              occupancyStatus, occupancyStatusName,
+              religion,
+              schoolSupport, schoolSupportName,
+              residencyCode, residencyCodeDescription,
+              citizenship,
+              designatedRatepayerCode,
+              yearOfBirth, monthOfBirth,
+              frenchLanguageEducationRights)
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.name, record.identifier, record.identifierName, record.occupancyStatus, record.occupancyStatusName, record.religion, record.schoolSupport, record.schoolSupportName, record.residencyCode, record.residencyCodeDescription, record.citizenship, record.designatedRatepayerCode, record.yearOfBirth, record.monthOfBirth, record.frenchLanguageEducationRights);
+            },
+            HH: (record) => {
+                database
+                    .prepare(`insert into HH (
+              rollNumber, sequenceNumber, mailingAddress)
+              values (?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.mailingAddress);
+            },
+            JJ: (record) => {
+                database
+                    .prepare(`insert into JJ (
+              rollNumber, cityProvinceCountry, postalCode)
+              values (?, ?, ?)`)
+                    .run(record.rollNumber, record.cityProvinceCountry, record.postalCode);
+            },
+            KK: (record) => {
+                database
+                    .prepare(`insert into KK (
+              rollNumber,
+              streetNumber, upperStreetNumber,
+              qualifier,
+              streetName,
+              unitNumber)
+              values (?, ?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.streetNumber, record.upperStreetNumber, record.qualifier, record.streetName, record.unitNumber);
+            },
+            LL: (record) => {
+                database
+                    .prepare(`insert into LL (
+              rollNumber, sequenceNumber, legalDescription)
+              values (?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.legalDescription);
+            },
+            MM: (record) => {
+                database
+                    .prepare(`insert into MM (
+              rollNumber, sequenceNumber, commentsSiteDimensions)
+              values (?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.commentsSiteDimensions);
+            },
+            PA: (record) => {
+                database
+                    .prepare(`insert into PA (
+              rollNumber, sequenceNumber,
+              phasedInValue,
+              unitClass, unitClassDescription,
+              realtyTaxClass, realtyTaxClassName,
+              realtyTaxQualifier, realtyTaxQualifierClass, realtyTaxQualifierName,
+              tenantTaxLiability,
+              noticeIssued,
+              previousYearAssessment,
+              unitSupport, unitSupportName,
+              pooledTaxesUnit,
+              propertyType, propertyTypeName,
+              propertyTotal, realtyPortionTotal)
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValue, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessment, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotal, record.realtyPortionTotal);
+            },
+            PB: (record) => {
+                database
+                    .prepare(`insert into PB (
+              rollNumber, sequenceNumber,
+              realtyPortionEnglishPublic, realtyPortionEnglishSeparate, realtyPortionNoSupport)
+              values (?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionEnglishPublic, record.realtyPortionEnglishSeparate, record.realtyPortionNoSupport);
+            },
+            PC: (record) => {
+                database
+                    .prepare(`insert into PC (
+              rollNumber, sequenceNumber,
+              realtyPortionFrenchPublic, realtyPortionFrenchSeparate)
+              values (?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionFrenchPublic, record.realtyPortionFrenchSeparate);
+            },
+            PD: (record) => {
+                database
+                    .prepare(`insert into PD (
+              rollNumber, sequenceNumber, realtyPortionProtestantSeparate)
+              values (?, ?, ?)`)
+                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionProtestantSeparate);
+            },
+            PI: (record) => {
+                database
+                    .prepare(`insert into PI (
+              rollNumber,
+              phaseInStartingPoint, phaseInValue, phaseInDestinationValue)
+              values (?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.phaseInStartingPoint, record.phaseInValue, record.phaseInDestinationValue);
             }
         }
     });
