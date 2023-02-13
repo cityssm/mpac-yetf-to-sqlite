@@ -116,10 +116,9 @@ try {
           .prepare(
             `insert into BB (
               rollNumber,
-              frontage, frontageFeet, frontageMetres,
-              siteArea, siteAreaSquareFeet, siteAreaAcres,
-              unitOfMeasurement,
-              depth, depthFeet, depthMetres, farmForestryExemptionAcres,
+              frontageFeet, frontageMetres,
+              siteAreaSquareFeet, siteAreaAcres,
+              depthFeet, depthMetres, farmForestryExemptionAcres,
               siteImprovement,
               siteImprovementHasBoathouse, siteImprovementHasSiteImprovements,
               siteImprovementHasOther, siteImprovementHasAccessibleFacilities,
@@ -129,18 +128,14 @@ try {
               propertyCode, propertyCodeClass, propertyCodeName,
               services, servicesName,
               access, accessName)
-              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
           )
           .run(
             record.rollNumber,
-            record.frontage,
             record.frontageFeet,
             record.frontageMetres,
-            record.siteArea,
             record.siteAreaSquareFeet,
             record.siteAreaAcres,
-            record.unitOfMeasurement,
-            record.depth,
             record.depthFeet,
             record.depthMetres,
             record.farmForestryExemptionAcres,
@@ -376,7 +371,7 @@ try {
           .prepare(
             `insert into PA (
               rollNumber, sequenceNumber,
-              phasedInValue,
+              phasedInValueDollars,
               unitClass, unitClassDescription,
               realtyTaxClass, realtyTaxClassName,
               realtyTaxQualifier, realtyTaxQualifierClass, realtyTaxQualifierName,
@@ -392,7 +387,7 @@ try {
           .run(
             record.rollNumber,
             record.sequenceNumber,
-            record.phasedInValue,
+            record.phasedInValueDollars,
             record.unitClass,
             record.unitClassDescription,
             record.realtyTaxClass,
@@ -417,15 +412,15 @@ try {
           .prepare(
             `insert into PB (
               rollNumber, sequenceNumber,
-              realtyPortionEnglishPublic, realtyPortionEnglishSeparate, realtyPortionNoSupport)
+              realtyPortionEnglishPublicDollars, realtyPortionEnglishSeparateDollars, realtyPortionNoSupportDollars)
               values (?, ?, ?, ?, ?)`
           )
           .run(
             record.rollNumber,
             record.sequenceNumber,
-            record.realtyPortionEnglishPublic,
-            record.realtyPortionEnglishSeparate,
-            record.realtyPortionNoSupport
+            record.realtyPortionEnglishPublicDollars,
+            record.realtyPortionEnglishSeparateDollars,
+            record.realtyPortionNoSupportDollars
           )
       },
       PC: (record: yetfTypes.FormattedYetfRecordPC) => {
@@ -433,27 +428,27 @@ try {
           .prepare(
             `insert into PC (
               rollNumber, sequenceNumber,
-              realtyPortionFrenchPublic, realtyPortionFrenchSeparate)
+              realtyPortionFrenchPublicDollars, realtyPortionFrenchSeparateDollars)
               values (?, ?, ?, ?)`
           )
           .run(
             record.rollNumber,
             record.sequenceNumber,
-            record.realtyPortionFrenchPublic,
-            record.realtyPortionFrenchSeparate
+            record.realtyPortionFrenchPublicDollars,
+            record.realtyPortionFrenchSeparateDollars
           )
       },
       PD: (record: yetfTypes.FormattedYetfRecordPD) => {
         database
           .prepare(
             `insert into PD (
-              rollNumber, sequenceNumber, realtyPortionProtestantSeparate)
+              rollNumber, sequenceNumber, realtyPortionProtestantSeparateDollars)
               values (?, ?, ?)`
           )
           .run(
             record.rollNumber,
             record.sequenceNumber,
-            record.realtyPortionProtestantSeparate
+            record.realtyPortionProtestantSeparateDollars
           )
       },
       PI: (record: yetfTypes.FormattedYetfRecordPI) => {
@@ -461,14 +456,14 @@ try {
           .prepare(
             `insert into PI (
               rollNumber,
-              phaseInStartingPoint, phaseInValue, phaseInDestinationValue)
+              phaseInStartingPointDollars, phaseInValueDollars, phaseInDestinationValueDollars)
               values (?, ?, ?, ?)`
           )
           .run(
             record.rollNumber,
-            record.phaseInStartingPoint,
-            record.phaseInValue,
-            record.phaseInDestinationValue
+            record.phaseInStartingPointDollars,
+            record.phaseInValueDollars,
+            record.phaseInDestinationValueDollars
           )
       }
     }

@@ -67,10 +67,9 @@ try {
                 database
                     .prepare(`insert into BB (
               rollNumber,
-              frontage, frontageFeet, frontageMetres,
-              siteArea, siteAreaSquareFeet, siteAreaAcres,
-              unitOfMeasurement,
-              depth, depthFeet, depthMetres, farmForestryExemptionAcres,
+              frontageFeet, frontageMetres,
+              siteAreaSquareFeet, siteAreaAcres,
+              depthFeet, depthMetres, farmForestryExemptionAcres,
               siteImprovement,
               siteImprovementHasBoathouse, siteImprovementHasSiteImprovements,
               siteImprovementHasOther, siteImprovementHasAccessibleFacilities,
@@ -80,8 +79,8 @@ try {
               propertyCode, propertyCodeClass, propertyCodeName,
               services, servicesName,
               access, accessName)
-              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.frontage, record.frontageFeet, record.frontageMetres, record.siteArea, record.siteAreaSquareFeet, record.siteAreaAcres, record.unitOfMeasurement, record.depth, record.depthFeet, record.depthMetres, record.farmForestryExemptionAcres, record.siteImprovement, record.siteImprovementHasBoathouse ? 1 : 0, record.siteImprovementHasSiteImprovements ? 1 : 0, record.siteImprovementHasOther ? 1 : 0, record.siteImprovementHasAccessibleFacilities ? 1 : 0, record.siteImprovementHasPool ? 1 : 0, record.siteImprovementHasElevator ? 1 : 0, record.siteImprovementHasSauna ? 1 : 0, record.siteImprovementHasMultiple ? 1 : 0, record.siteImprovementHasTennisCourts ? 1 : 0, record.propertyCode, record.propertyCodeClass, record.propertyCodeName, record.services, record.servicesName, record.access, record.accessName);
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.frontageFeet, record.frontageMetres, record.siteAreaSquareFeet, record.siteAreaAcres, record.depthFeet, record.depthMetres, record.farmForestryExemptionAcres, record.siteImprovement, record.siteImprovementHasBoathouse ? 1 : 0, record.siteImprovementHasSiteImprovements ? 1 : 0, record.siteImprovementHasOther ? 1 : 0, record.siteImprovementHasAccessibleFacilities ? 1 : 0, record.siteImprovementHasPool ? 1 : 0, record.siteImprovementHasElevator ? 1 : 0, record.siteImprovementHasSauna ? 1 : 0, record.siteImprovementHasMultiple ? 1 : 0, record.siteImprovementHasTennisCourts ? 1 : 0, record.propertyCode, record.propertyCodeClass, record.propertyCodeName, record.services, record.servicesName, record.access, record.accessName);
             },
             CC: (record) => {
                 database
@@ -188,7 +187,7 @@ try {
                 database
                     .prepare(`insert into PA (
               rollNumber, sequenceNumber,
-              phasedInValue,
+              phasedInValueDollars,
               unitClass, unitClassDescription,
               realtyTaxClass, realtyTaxClassName,
               realtyTaxQualifier, realtyTaxQualifierClass, realtyTaxQualifierName,
@@ -200,38 +199,38 @@ try {
               propertyType, propertyTypeName,
               propertyTotal, realtyPortionTotal)
               values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValue, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessment, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotal, record.realtyPortionTotal);
+                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValueDollars, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessment, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotal, record.realtyPortionTotal);
             },
             PB: (record) => {
                 database
                     .prepare(`insert into PB (
               rollNumber, sequenceNumber,
-              realtyPortionEnglishPublic, realtyPortionEnglishSeparate, realtyPortionNoSupport)
+              realtyPortionEnglishPublicDollars, realtyPortionEnglishSeparateDollars, realtyPortionNoSupportDollars)
               values (?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionEnglishPublic, record.realtyPortionEnglishSeparate, record.realtyPortionNoSupport);
+                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionEnglishPublicDollars, record.realtyPortionEnglishSeparateDollars, record.realtyPortionNoSupportDollars);
             },
             PC: (record) => {
                 database
                     .prepare(`insert into PC (
               rollNumber, sequenceNumber,
-              realtyPortionFrenchPublic, realtyPortionFrenchSeparate)
+              realtyPortionFrenchPublicDollars, realtyPortionFrenchSeparateDollars)
               values (?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionFrenchPublic, record.realtyPortionFrenchSeparate);
+                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionFrenchPublicDollars, record.realtyPortionFrenchSeparateDollars);
             },
             PD: (record) => {
                 database
                     .prepare(`insert into PD (
-              rollNumber, sequenceNumber, realtyPortionProtestantSeparate)
+              rollNumber, sequenceNumber, realtyPortionProtestantSeparateDollars)
               values (?, ?, ?)`)
-                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionProtestantSeparate);
+                    .run(record.rollNumber, record.sequenceNumber, record.realtyPortionProtestantSeparateDollars);
             },
             PI: (record) => {
                 database
                     .prepare(`insert into PI (
               rollNumber,
-              phaseInStartingPoint, phaseInValue, phaseInDestinationValue)
+              phaseInStartingPointDollars, phaseInValueDollars, phaseInDestinationValueDollars)
               values (?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.phaseInStartingPoint, record.phaseInValue, record.phaseInDestinationValue);
+                    .run(record.rollNumber, record.phaseInStartingPointDollars, record.phaseInValueDollars, record.phaseInDestinationValueDollars);
             }
         }
     });

@@ -23,14 +23,10 @@ export const createStatements = [
   )`,
   `create table BB (
     rollNumber char(19) primary key not null,
-    frontage char(9) not null,
     frontageFeet double,
     frontageMetres double,
-    siteArea char(10) not null,
     siteAreaSquareFeet double,
     siteAreaAcres double,
-    unitOfMeasurement char(1) not null,
-    depth char(8) not null,
     depthFeet double,
     depthMetres double,
     farmForestryExemptionAcres double,
@@ -177,7 +173,7 @@ export const createStatements = [
   `create table PA (
     rollNumber char(19) not null,
     sequenceNumber char(1) not null,
-    phasedInValue char(10) not null,
+    phasedInValueDollars integer not null,
     unitClass char(3) not null,
     unitClassDescription text,
     realtyTaxClass char(1) not null,
@@ -201,32 +197,32 @@ export const createStatements = [
   `create table PB (
     rollNumber char(19) not null,
     sequenceNumber char(1) not null,
-    realtyPortionEnglishPublic char(10) not null,
-    realtyPortionEnglishSeparate char(10) not null,
-    realtyPortionNoSupport char(10) not null,
+    realtyPortionEnglishPublicDollars integer not null,
+    realtyPortionEnglishSeparateDollars integer not null,
+    realtyPortionNoSupportDollars integer not null,
     primary key (rollNumber, sequenceNumber),
     foreign key (rollNumber) references AA (rollNumber)
   )`,
   `create table PC (
     rollNumber char(19) not null,
     sequenceNumber char(1) not null,
-    realtyPortionFrenchPublic char(10) not null,
-    realtyPortionFrenchSeparate char(10) not null,
+    realtyPortionFrenchPublicDollars integer not null,
+    realtyPortionFrenchSeparateDollars integer not null,
     primary key (rollNumber, sequenceNumber),
     foreign key (rollNumber) references AA (rollNumber)
   )`,
   `create table PD (
     rollNumber char(19) not null,
     sequenceNumber char(1) not null,
-    realtyPortionProtestantSeparate char(10) not null,
+    realtyPortionProtestantSeparateDollars integer not null,
     primary key (rollNumber, sequenceNumber),
     foreign key (rollNumber) references AA (rollNumber)
   )`,
   `create table PI (
     rollNumber char(19) primary key not null,
-    phaseInStartingPoint char(10) not null,
-    phaseInValue char(10) not null,
-    phaseInDestinationValue char(10) not null,
+    phaseInStartingPointDollars integer not null,
+    phaseInValueDollars integer not null,
+    phaseInDestinationValueDollars integer not null,
     foreign key (rollNumber) references AA (rollNumber)
   )`,
   `create view HH_Flattened as
