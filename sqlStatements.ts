@@ -228,5 +228,30 @@ export const createStatements = [
     phaseInValue char(10) not null,
     phaseInDestinationValue char(10) not null,
     foreign key (rollNumber) references AA (rollNumber)
-  )`
+  )`,
+  `create view HH_Flattened as
+    select rollNumber,
+    max(case when sequenceNumber = '1' then mailingAddress else '' end) as mailingAddress1,
+    max(case when sequenceNumber = '2' then mailingAddress else '' end) as mailingAddress2,
+    max(case when sequenceNumber = '3' then mailingAddress else '' end) as mailingAddress3
+    from HH
+    group by rollNumber`,
+  `create view LL_Flattened as
+    select rollNumber,
+    max(case when sequenceNumber = '1' then legalDescription else '' end) as legalDescription1,
+    max(case when sequenceNumber = '2' then legalDescription else '' end) as legalDescription2,
+    max(case when sequenceNumber = '3' then legalDescription else '' end) as legalDescription3,
+    max(case when sequenceNumber = '4' then legalDescription else '' end) as legalDescription4,
+    max(case when sequenceNumber = '5' then legalDescription else '' end) as legalDescription5
+    from LL
+    group by rollNumber`,
+  `create view MM_Flattened as
+    select rollNumber,
+    max(case when sequenceNumber = '1' then commentsSiteDimensions else '' end) as commentsSiteDimensions1,
+    max(case when sequenceNumber = '2' then commentsSiteDimensions else '' end) as commentsSiteDimensions2,
+    max(case when sequenceNumber = '3' then commentsSiteDimensions else '' end) as commentsSiteDimensions3,
+    max(case when sequenceNumber = '4' then commentsSiteDimensions else '' end) as commentsSiteDimensions4,
+    max(case when sequenceNumber = '5' then commentsSiteDimensions else '' end) as commentsSiteDimensions5
+    from MM
+    group by rollNumber`
 ]
