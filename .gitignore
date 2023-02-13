@@ -2,4 +2,6 @@
 bin/daemon/
 coverage/
 node_modules/
+
 R*.txt
+*.db
