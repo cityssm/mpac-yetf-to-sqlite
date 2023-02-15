@@ -9,6 +9,7 @@ export const createStatements = [
     rollNumberParcel char(3) not null,
     rollNumberParcelSub char(2) not null,
     rollNumberPrimarySubordinate char(4) not null,
+    rollNumberMunicipalityName varchar(50),
     ward char(2) not null,
     poll char(3) not null,
     pollSuffix char(1) not null,
@@ -190,8 +191,8 @@ export const createStatements = [
     pooledTaxesUnit char(1) not null,
     propertyType char(1) not null,
     propertyTypeName varchar(30),
-    propertyTotal char(10) not null,
-    realtyPortionTotal char(10) not null,
+    propertyTotalDollars integer not null,
+    realtyPortionTotalDollars integer not null,
     primary key (rollNumber, sequenceNumber),
     foreign key (rollNumber) references AA (rollNumber)
   )`,
@@ -250,5 +251,67 @@ export const createStatements = [
     max(case when sequenceNumber = '4' then commentsSiteDimensions else '' end) as commentsSiteDimensions4,
     max(case when sequenceNumber = '5' then commentsSiteDimensions else '' end) as commentsSiteDimensions5
     from MM
-    group by rollNumber`
+    group by rollNumber`,
+    `create view PropertyData as
+    select AA.rollNumber, KK.civicAddress,
+    AA.rollNumberCounty, AA.rollNumberMunicipality, AA.rollNumberMapArea, AA.rollNumberMapDivision, AA.rollNumberMapSubdivision, AA.rollNumberParcel, AA.rollNumberParcelSub, AA.rollNumberPrimarySubordinate,
+    AA.rollNumberMunicipalityName,
+    AA.ward, AA.poll, AA.pollSuffix,
+    AA.highSchoolCode, AA.publicSchoolCode, AA.separateSchoolCode, AA.frenchPublicSchoolCode, AA.frenchSeparateSchoolCode,
+    AA.specialRateArea, AA.pacCode, AA.previousRollNumber,
+    BB.frontageFeet, BB.frontageMetres,
+    BB.siteAreaSquareFeet, BB.siteAreaAcres,
+    BB.depthFeet, BB.depthMetres,
+    BB.farmForestryExemptionAcres,
+    BB.siteImprovement,
+    BB.siteImprovementHasBoathouse, BB.siteImprovementHasSiteImprovements, BB.siteImprovementHasOther, BB.siteImprovementHasAccessibleFacilities, BB.siteImprovementHasPool,
+    BB.siteImprovementHasElevator, BB.siteImprovementHasSauna, BB.siteImprovementHasMultiple, BB.siteImprovementHasTennisCourts,
+    BB.propertyCode, BB.propertyCodeClass, BB.propertyCodeName,
+    BB.services, BB.servicesName,
+    BB.access, BB.accessName
+    from AA
+    left join BB on AA.rollNumber = BB.rollNumber
+    left join KK on AA.rollNumber = KK.rollNumber`,
+    `create view NamesAndAddresses as
+    select
+    GG.rollNumber, GG.sequenceNumber,
+    GG.name, GG.identifier, GG.identifierName,
+    GG.occupancyStatus, GG.occupancyStatusName,
+    GG.religion, GG.schoolSupport, GG.schoolSupportName,
+    GG.residencyCode, GG.residencyCodeDescription,
+    GG.citizenship, GG.designatedRatepayerCode,
+    GG.yearOfBirth, GG.monthOfBirth, GG.frenchLanguageEducationRights,
+    HH.mailingAddress1, HH.mailingAddress2, HH.mailingAddress3,
+    JJ.cityProvinceCountry, JJ.postalCode
+    from GG
+    left join HH_Flattened HH on GG.rollNumber = HH.rollNumber
+    left join JJ on HH.rollNumber = JJ.rollNumber`,
+    `create view PropertyLocations as
+    select
+    KK.rollNumber,
+    KK.streetNumber, KK.upperStreetNumber, KK.qualifier, KK.streetName, KK.unitNumber, KK.civicAddress,
+    LL.legalDescription1, LL.legalDescription2, LL.legalDescription3, LL.legalDescription4, LL.legalDescription5,
+    MM.commentsSiteDimensions1, MM.commentsSiteDimensions2, MM.commentsSiteDimensions3, MM.commentsSiteDimensions4, MM.commentsSiteDimensions5
+    from KK
+    left join LL_Flattened LL on KK.rollNumber = LL.rollNumber
+    left join MM_Flattened MM on KK.rollNumber = MM.rollNumber`,
+    `create view ValuationTaxLiability as
+    select PA.rollNumber, KK.civicAddress, PA.sequenceNumber,
+    PA.unitClass, PA.unitClassDescription,
+    PA.realtyTaxClass, PA.realtyTaxClassName,
+    PA.realtyTaxQualifier, PA.realtyTaxQualifierClass, PA.realtyTaxQualifierName,
+    PA.tenantTaxLiability, PA.noticeIssued, PA.previousYearAssessmentDollars,
+    PA.unitSupport, PA.unitSupportName,
+    PA.pooledTaxesUnit, PA.propertyType, PA.propertyTypeName,
+    PA.propertyTotalDollars, PA.realtyPortionTotalDollars,
+    PB.realtyPortionEnglishPublicDollars, PB.realtyPortionEnglishSeparateDollars,
+    PC.realtyPortionFrenchPublicDollars, PC.realtyPortionFrenchSeparateDollars,
+    PD.realtyPortionProtestantSeparateDollars,
+    PI.phaseInStartingPointDollars, PI.phaseInValueDollars, PI.phaseInDestinationValueDollars
+    from PA
+    left join PB on PA.rollNumber = PB.rollNumber and PA.sequenceNumber = PB.sequenceNumber
+    left join PC on PA.rollNumber = PC.rollNumber and PA.sequenceNumber = PC.sequenceNumber
+    left join PD on PA.rollNumber = PD.rollNumber and PA.sequenceNumber = PD.sequenceNumber
+    left join PI on PA.rollNumber = PI.rollNumber
+    left join KK on PA.rollNumber = KK.rollNumber`
 ];

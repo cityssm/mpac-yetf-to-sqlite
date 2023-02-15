@@ -55,13 +55,14 @@ try {
               rollNumberMapArea, rollNumberMapDivision, rollNumberMapSubdivision,
               rollNumberParcel, rollNumberParcelSub,
               rollNumberPrimarySubordinate,
+              rollNumberMunicipalityName,
               ward, poll, pollSuffix,
               highSchoolCode, publicSchoolCode, separateSchoolCode,
               specialRateArea, pacCode,
               previousRollNumber,
               frenchPublicSchoolCode, frenchSeparateSchoolCode)
-              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.rollNumberCounty, record.rollNumberMunicipality, record.rollNumberMapArea, record.rollNumberMapDivision, record.rollNumberMapSubdivision, record.rollNumberParcel, record.rollNumberParcelSub, record.rollNumberPrimarySubordinate, record.ward, record.poll, record.pollSuffix, record.highSchoolCode, record.publicSchoolCode, record.separateSchoolCode, record.specialRateArea, record.pacCode, record.previousRollNumber, record.frenchPublicSchoolCode, record.frenchSeparateSchoolCode);
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.rollNumberCounty, record.rollNumberMunicipality, record.rollNumberMapArea, record.rollNumberMapDivision, record.rollNumberMapSubdivision, record.rollNumberParcel, record.rollNumberParcelSub, record.rollNumberPrimarySubordinate, record.rollNumberMunicipalityName, record.ward, record.poll, record.pollSuffix, record.highSchoolCode, record.publicSchoolCode, record.separateSchoolCode, record.specialRateArea, record.pacCode, record.previousRollNumber, record.frenchPublicSchoolCode, record.frenchSeparateSchoolCode);
             },
             BB: (record) => {
                 database
@@ -198,9 +199,9 @@ try {
               unitSupport, unitSupportName,
               pooledTaxesUnit,
               propertyType, propertyTypeName,
-              propertyTotal, realtyPortionTotal)
+              propertyTotalDollars, realtyPortionTotalDollars)
               values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValueDollars, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessmentDollars, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotal, record.realtyPortionTotal);
+                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValueDollars, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessmentDollars, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotalDollars, record.realtyPortionTotalDollars);
             },
             PB: (record) => {
                 database
