@@ -81,12 +81,13 @@ try {
               rollNumberMapArea, rollNumberMapDivision, rollNumberMapSubdivision,
               rollNumberParcel, rollNumberParcelSub,
               rollNumberPrimarySubordinate,
+              rollNumberMunicipalityName,
               ward, poll, pollSuffix,
               highSchoolCode, publicSchoolCode, separateSchoolCode,
               specialRateArea, pacCode,
               previousRollNumber,
               frenchPublicSchoolCode, frenchSeparateSchoolCode)
-              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+              values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
           )
           .run(
             record.rollNumber,
@@ -98,6 +99,7 @@ try {
             record.rollNumberParcel,
             record.rollNumberParcelSub,
             record.rollNumberPrimarySubordinate,
+            record.rollNumberMunicipalityName,
             record.ward,
             record.poll,
             record.pollSuffix,
@@ -328,8 +330,9 @@ try {
               streetNumber, upperStreetNumber,
               qualifier,
               streetName,
-              unitNumber)
-              values (?, ?, ?, ?, ?, ?)`
+              unitNumber,
+              civicAddress)
+              values (?, ?, ?, ?, ?, ?, ?)`
           )
           .run(
             record.rollNumber,
@@ -337,7 +340,8 @@ try {
             record.upperStreetNumber,
             record.qualifier,
             record.streetName,
-            record.unitNumber
+            record.unitNumber,
+            record.civicAddress
           )
       },
       LL: (record: yetfTypes.FormattedYetfRecordLL) => {
@@ -377,11 +381,11 @@ try {
               realtyTaxQualifier, realtyTaxQualifierClass, realtyTaxQualifierName,
               tenantTaxLiability,
               noticeIssued,
-              previousYearAssessment,
+              previousYearAssessmentDollars,
               unitSupport, unitSupportName,
               pooledTaxesUnit,
               propertyType, propertyTypeName,
-              propertyTotal, realtyPortionTotal)
+              propertyTotalDollars, realtyPortionTotalDollars)
               values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
           )
           .run(
@@ -397,14 +401,14 @@ try {
             record.realtyTaxQualifierName,
             record.tenantTaxLiability,
             record.noticeIssued,
-            record.previousYearAssessment,
+            record.previousYearAssessmentDollars,
             record.unitSupport,
             record.unitSupportName,
             record.pooledTaxesUnit,
             record.propertyType,
             record.propertyTypeName,
-            record.propertyTotal,
-            record.realtyPortionTotal
+            record.propertyTotalDollars,
+            record.realtyPortionTotalDollars
           )
       },
       PB: (record: yetfTypes.FormattedYetfRecordPB) => {

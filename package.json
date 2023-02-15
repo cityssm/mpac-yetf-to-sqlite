@@ -32,7 +32,7 @@
     "eslint-plugin-unicorn": "^45.0.2"
   },
   "dependencies": {
-    "@cityssm/mpac-yetf": "^0.3.1",
+    "@cityssm/mpac-yetf": "^0.5.0",
     "better-sqlite3": "^8.1.0",
     "yargs": "^17.6.2"
   }

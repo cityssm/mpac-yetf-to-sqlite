@@ -154,6 +154,7 @@ export const createStatements = [
     qualifier char(1) not null,
     streetName char(17) not null,
     unitNumber char(5) not null,
+    civicAddress varchar(40),
     foreign key (rollNumber) references AA (rollNumber)
   )`,
     `create table LL (
@@ -183,7 +184,7 @@ export const createStatements = [
     realtyTaxQualifierName varchar(100),
     tenantTaxLiability char(1) not null,
     noticeIssued char(1) not null,
-    previousYearAssessment char(10) not null,
+    previousYearAssessmentDollars integer not null,
     unitSupport char(1) not null,
     unitSupportName varchar(30),
     pooledTaxesUnit char(1) not null,

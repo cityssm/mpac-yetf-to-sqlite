@@ -165,9 +165,10 @@ try {
               streetNumber, upperStreetNumber,
               qualifier,
               streetName,
-              unitNumber)
-              values (?, ?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.streetNumber, record.upperStreetNumber, record.qualifier, record.streetName, record.unitNumber);
+              unitNumber,
+              civicAddress)
+              values (?, ?, ?, ?, ?, ?, ?)`)
+                    .run(record.rollNumber, record.streetNumber, record.upperStreetNumber, record.qualifier, record.streetName, record.unitNumber, record.civicAddress);
             },
             LL: (record) => {
                 database
@@ -193,13 +194,13 @@ try {
               realtyTaxQualifier, realtyTaxQualifierClass, realtyTaxQualifierName,
               tenantTaxLiability,
               noticeIssued,
-              previousYearAssessment,
+              previousYearAssessmentDollars,
               unitSupport, unitSupportName,
               pooledTaxesUnit,
               propertyType, propertyTypeName,
               propertyTotal, realtyPortionTotal)
               values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValueDollars, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessment, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotal, record.realtyPortionTotal);
+                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValueDollars, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessmentDollars, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotal, record.realtyPortionTotal);
             },
             PB: (record) => {
                 database
