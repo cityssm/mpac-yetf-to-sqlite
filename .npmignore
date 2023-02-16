@@ -1,0 +1,15 @@
+.github/
+coverage/
+test/
+
+.codeclimate.yml
+.eslintignore
+.eslintrc.json
+.gitignore
+.prettierignore
+.prettierrc.json
+tsconfig.json
+
+*.db
+*.db-journal
+*.txt
