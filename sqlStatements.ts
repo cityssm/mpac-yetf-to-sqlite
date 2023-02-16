@@ -175,7 +175,7 @@ export const createStatements = [
   `create table PA (
     rollNumber char(19) not null,
     sequenceNumber char(1) not null,
-    phasedInValueDollars integer not null,
+    phaseInValueDollars integer not null,
     unitClass char(3) not null,
     unitClassDescription text,
     realtyTaxClass char(1) not null,

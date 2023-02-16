@@ -375,7 +375,7 @@ try {
           .prepare(
             `insert into PA (
               rollNumber, sequenceNumber,
-              phasedInValueDollars,
+              phaseInValueDollars,
               unitClass, unitClassDescription,
               realtyTaxClass, realtyTaxClassName,
               realtyTaxQualifier, realtyTaxQualifierClass, realtyTaxQualifierName,
@@ -391,7 +391,7 @@ try {
           .run(
             record.rollNumber,
             record.sequenceNumber,
-            record.phasedInValueDollars,
+            record.phaseInValueDollars,
             record.unitClass,
             record.unitClassDescription,
             record.realtyTaxClass,

@@ -189,7 +189,7 @@ try {
                 database
                     .prepare(`insert into PA (
               rollNumber, sequenceNumber,
-              phasedInValueDollars,
+              phaseInValueDollars,
               unitClass, unitClassDescription,
               realtyTaxClass, realtyTaxClassName,
               realtyTaxQualifier, realtyTaxQualifierClass, realtyTaxQualifierName,
@@ -201,7 +201,7 @@ try {
               propertyType, propertyTypeName,
               propertyTotalDollars, realtyPortionTotalDollars)
               values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-                    .run(record.rollNumber, record.sequenceNumber, record.phasedInValueDollars, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessmentDollars, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotalDollars, record.realtyPortionTotalDollars);
+                    .run(record.rollNumber, record.sequenceNumber, record.phaseInValueDollars, record.unitClass, record.unitClassDescription, record.realtyTaxClass, record.realtyTaxClassName, record.realtyTaxQualifier, record.realtyTaxQualifierClass, record.realtyTaxQualifierName, record.tenantTaxLiability, record.noticeIssued, record.previousYearAssessmentDollars, record.unitSupport, record.unitSupportName, record.pooledTaxesUnit, record.propertyType, record.propertyTypeName, record.propertyTotalDollars, record.realtyPortionTotalDollars);
             },
             PB: (record) => {
                 database
