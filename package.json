@@ -22,7 +22,7 @@
     "@types/better-sqlite3": "^7.6.3",
     "@types/node": "^18.13.0",
     "@types/yargs": "^17.0.22",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.52.0",
     "eslint": "^8.34.0",
     "eslint-config-standard-with-typescript": "^34.0.0",
