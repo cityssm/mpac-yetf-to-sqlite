@@ -21,7 +21,7 @@
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.3",
     "@types/node": "^18.13.0",
-    "@types/yargs": "^17.0.22",
+    "@types/yargs": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "eslint": "^8.34.0",
@@ -34,6 +34,6 @@
   "dependencies": {
     "@cityssm/mpac-yetf": "^0.6.0",
     "better-sqlite3": "^8.1.0",
-    "yargs": "^17.6.2"
+    "yargs": "^17.7.2"
   }
 }
